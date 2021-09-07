@@ -27,15 +27,19 @@ int main(int argc, char *argv[])
         
         // Recuperación primeros dos caracteres
         char c1 = recv_character(client_sock);
-        printf("%c\n", c1);
+        printf("Receiving byte value: %d with address %p\n", c1, &c1);
         char c2 = recv_character(client_sock);
-        printf("%c\n", c2);
+        printf("Receiving byte value: %d with address %p\n", c2, &c2);
 
         // Lectura de caracteres enviados (representados en big-endian) para los primeros 4 bytes del long (representado en little-endian)
         char c3 = recv_character(client_sock);
+        printf("Receiving byte value: %d with address %p\n", c3, &c3);
         char c4 = recv_character(client_sock);
+        printf("Receiving byte value: %d with address %p\n", c4, &c4);
         char c5 = recv_character(client_sock);
+        printf("Receiving byte value: %d with address %p\n", c5, &c5);
         char c6 = recv_character(client_sock);
+        printf("Receiving byte value: %d with address %p\n", c6, &c6);
         
         // Creación de variable long y puntero para asignar valores
         long i;
@@ -50,12 +54,18 @@ int main(int argc, char *argv[])
         p[5] = 0;
         p[6] = 0;
         p[7] = 0;
-        printf("%ld\n", i);
         
         // Recuperación de últimos dos caracteres
         char c7 = recv_character(client_sock);
-        printf("%c\n", c7);
+        printf("Receiving byte value: %d with address %p\n", c7, &c7);
         char c8 = recv_character(client_sock);
+        printf("Receiving byte value: %d with address %p\n", c8, &c8);
+        
+        // Printing all globalvariables
+        printf("%c\n", c1);
+        printf("%c\n", c2);
+        printf("%ld\n", i);
+        printf("%c\n", c7);
         printf("%c\n", c8);
     }
     

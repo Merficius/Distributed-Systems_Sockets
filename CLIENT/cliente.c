@@ -6,7 +6,7 @@
 #include <string.h>
 #include <sys/socket.h>
 
-char c1 = 'A'; // 30
+char c1 = 'A';
 char c2 = 'B';
 int i = 16; // Entero a 32 bits representado en LITTLE-ENDIAN
 char c3 = 'C';
@@ -19,22 +19,23 @@ int main(int argc, char *argv[])
 {
     int sock = connection();
     
-    // communicating with server
+    // creando puntero para acceder a diferentes valores
+    char *p = &c1;
     
     // Envío de primeros dos caracteres
-    send_character(sock, &c1);
-    send_character(sock, &c2);
+    send_character(sock, &p[0]);
+    send_character(sock, &p[1]);
     
     // Envío de entero dividido en 4 bytes usando caracteres, ordenado en big-endian
-    char *p = (char *)&i;
-    send_character(sock, &p[3]);
-    send_character(sock, &p[2]);
-    send_character(sock, &p[1]);
-    send_character(sock, &p[0]);
+    
+    send_character(sock, &p[7]);
+    send_character(sock, &p[6]);
+    send_character(sock, &p[5]);
+    send_character(sock, &p[4]);
     
     // Envío de últimos dos caracteres
-    send_character(sock, &c3);
-    send_character(sock, &c4);
+    send_character(sock, &p[8]);
+    send_character(sock, &p[9]);
     
     close(sock);
     return 0;
@@ -55,8 +56,9 @@ void send_integer(int sock)
     }
 }
 
-void send_character(int sock, char* character) //30
+void send_character(int sock, char* character)
 {
+    printf("Sending byte value: %d with address %p\n", *character, character);
     if( send(sock, character, sizeof(*character), 0) < 0) {
         puts("Send failed");
         exit(1);
